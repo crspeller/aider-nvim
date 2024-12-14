@@ -1,5 +1,6 @@
-if vim.version().minor < 5 then
-    vim.notify("aider.nvim requires Neovim >= 0.5", vim.log.levels.ERROR)
+local has_nvim_0_5 = vim.fn.has("nvim-0.5.0") == 1
+if not has_nvim_0_5 then
+    vim.notify("aider.nvim requires Neovim >= 0.5.0", vim.log.levels.ERROR)
     return
 end
 
