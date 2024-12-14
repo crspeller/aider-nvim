@@ -1,12 +1,14 @@
 local M = {}
 
 -- Default configuration
-M.config = {
+local default_config = {
     -- Default height of the terminal split (in rows)
     terminal_height = 15,
     -- Command to run
     command = "aider",
 }
+
+M.config = default_config
 
 -- Function to setup the plugin with user config
 function M.setup(opts)
