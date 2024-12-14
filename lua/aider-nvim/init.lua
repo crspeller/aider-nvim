@@ -1,7 +1,11 @@
+--- aider.nvim - A Neovim plugin for seamless integration with aider
+--- @module aider-nvim
 local M = {}
 
 -- Default configuration
 local default_config = {
+    --- @type number Height of the terminal split in rows
+    --- @type string Command to run for aider
     -- Default height of the terminal split (in rows)
     terminal_height = 15,
     -- Command to run
