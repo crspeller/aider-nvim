@@ -12,8 +12,11 @@ dirs:
 
 install:
 	@echo "Installing aider.nvim..."
-	@mkdir -p $(PLUGIN_DIR)
-	@cp -r lua plugin README.md $(PLUGIN_DIR)/
+	@mkdir -p $(PLUGIN_DIR)/lua/aider-nvim
+	@mkdir -p $(PLUGIN_DIR)/plugin
+	@cp lua/aider-nvim/init.lua $(PLUGIN_DIR)/lua/aider-nvim/
+	@cp plugin/aider.lua $(PLUGIN_DIR)/plugin/
+	@cp README.md $(PLUGIN_DIR)/
 	@echo "Installation complete!"
 
 clean:
