@@ -6,7 +6,13 @@ PLUGIN_DIR = $(NVIM_CONFIG_DIR)/pack/plugins/start/aider.nvim
 LUA_DIR = $(PLUGIN_DIR)/lua
 PLUGIN_FILES_DIR = $(PLUGIN_DIR)/plugin
 
-.PHONY: install clean
+.PHONY: install clean dirs
+
+dirs:
+	@echo "NVIM_CONFIG_DIR = $(NVIM_CONFIG_DIR)"
+	@echo "PLUGIN_DIR      = $(PLUGIN_DIR)"
+	@echo "LUA_DIR         = $(LUA_DIR)"
+	@echo "PLUGIN_FILES_DIR = $(PLUGIN_FILES_DIR)"
 
 install:
 	@echo "Installing aider.nvim..."
