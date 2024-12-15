@@ -14,9 +14,13 @@ local default_config = {
 
 M.config = default_config
 
+-- Track if plugin has been initialized
+M.initialized = false
+
 -- Function to setup the plugin with user config
 function M.setup(opts)
     M.config = vim.tbl_deep_extend("force", M.config, opts or {})
+    M.initialized = true
 end
 
 -- Function to open aider in a terminal
