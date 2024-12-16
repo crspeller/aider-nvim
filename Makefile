@@ -1,8 +1,8 @@
 # Get the Neovim configuration directory
-NVIM_CONFIG_DIR ?= $(HOME)/.config/nvim
+NVIM_CONFIG_DIR ?= $(HOME)/.local/share/nvim/site/plugin
 
 # Plugin directory
-PLUGIN_DIR = $(NVIM_CONFIG_DIR)/pack/plugins/start/aider.nvim
+PLUGIN_DIR = $(NVIM_CONFIG_DIR)/aider.nvim
 
 .PHONY: install clean dirs
 
