@@ -1,5 +1,5 @@
 # Get the Neovim configuration directory
-NVIM_CONFIG_DIR ?= $(HOME)/.local/share/nvim/site/plugin
+NVIM_CONFIG_DIR ?= $(HOME)/.config/nvim/pack/plugins/start
 
 # Plugin directory
 PLUGIN_DIR = $(NVIM_CONFIG_DIR)/aider.nvim
