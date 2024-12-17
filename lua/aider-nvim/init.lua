@@ -50,13 +50,13 @@ local function send_to_terminal(cmd)
 end
 
 -- Function to add files to aider
-function M.add_files(files)
+function M.add_files(files, read_only)
     if #files > 0 then
         -- Add specified files
         local added_files = {}
         for _, file in ipairs(files) do
             local full_path = vim.fn.fnamemodify(file, ':p')
-            local cmd = "/add " .. full_path
+            local cmd = read_only and "/read-only " .. full_path or "/add " .. full_path
             send_to_terminal(cmd)
             table.insert(added_files, full_path)
         end
@@ -65,7 +65,7 @@ function M.add_files(files)
         -- Add current buffer's file
         local current_file = vim.fn.expand('%:p')
         if current_file ~= '' then
-            local cmd = "/add " .. current_file
+            local cmd = read_only and "/read-only " .. current_file or "/add " .. current_file
             send_to_terminal(cmd)
             vim.notify("Added file to aider: " .. current_file)
         else
@@ -88,7 +88,14 @@ end
 
 -- Create commands for adding/removing current file
 vim.api.nvim_create_user_command("AiderAddFile", function(opts)
-    M.add_files(opts.fargs)
+    M.add_files(opts.fargs, false)
+end, {
+    nargs = '*',
+    complete = 'file'
+})
+
+vim.api.nvim_create_user_command("AiderAddFileRO", function(opts)
+    M.add_files(opts.fargs, true)
 end, {
     nargs = '*',
     complete = 'file'
