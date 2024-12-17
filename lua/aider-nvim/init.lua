@@ -68,7 +68,7 @@ vim.api.nvim_create_user_command("AiderAddFile", function()
     M.add_current_file()
 end, {})
 
-vim.api.nvim_create_user_command("AiderRemoveFile", function()
+vim.api.nvim_create_user_command("AiderDropFile", function()
     M.remove_current_file()
 end, {})
 

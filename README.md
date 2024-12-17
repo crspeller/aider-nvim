@@ -44,4 +44,4 @@ require('aider-nvim').setup({
 
 - `:Aider` - Opens a terminal split and runs aider
 - `:AiderAddFile` - Adds the current buffer's file to aider
-- `:AiderRemoveFile` - Removes the current buffer's file from aider
+- `:AiderDropFile` - Removes the current buffer's file from aider
