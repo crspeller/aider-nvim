@@ -1,4 +1,4 @@
-# aider.nvim
+# aider-nvim
 
 A simple Neovim plugin for integrating with [aider](https://aider.chat/)
 

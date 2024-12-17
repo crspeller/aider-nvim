@@ -1,4 +1,3 @@
---- aider.nvim - A Neovim plugin for seamless integration with aider
 --- @module aider-nvim
 local M = {}
 

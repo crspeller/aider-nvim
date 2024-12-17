@@ -1,6 +1,6 @@
 -- Check for minimum Neovim version
 if vim.fn.has("nvim-0.5") ~= 1 then
-    vim.notify("aider.nvim requires Neovim >= 0.5", vim.log.levels.ERROR)
+    vim.notify("aider-nvim requires Neovim >= 0.5", vim.log.levels.ERROR)
     return
 end
 
