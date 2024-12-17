@@ -4,10 +4,10 @@ A Neovim plugin for seamlessly integrating with aider (AI pair programming tool)
 
 ## Installation
 
-Using [packer.nvim](https://github.com/wbthomason/packer.nvim):
+Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
-use {
+{
     'your-username/aider.nvim',
     config = function()
         require('aider-nvim').setup({
