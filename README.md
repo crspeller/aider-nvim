@@ -28,6 +28,10 @@ The plugin provides a command `:Aider` that opens a terminal split and runs aide
 ```lua
 -- Map :Aider to <leader>a
 vim.keymap.set('n', '<leader>a', ':Aider<CR>', { noremap = true, silent = true })
+
+-- Optional: Map <esc> to exit terminal mode
+-- This allows you to exit the aider terminal with <esc>
+vim.api.nvim_set_keymap('t', '<esc>', '<c-\\><c-n>', {noremap = true})
 ```
 
 ## Configuration
