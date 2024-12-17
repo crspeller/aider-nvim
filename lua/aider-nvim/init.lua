@@ -131,6 +131,17 @@ vim.api.nvim_create_user_command("AiderDropAll", function()
     M.drop_all_files()
 end, {})
 
+-- Function to clear aider's context
+function M.clear_context()
+    local cmd = "/clear"
+    send_to_terminal(cmd)
+    vim.notify("Cleared aider's context")
+end
+
+vim.api.nvim_create_user_command("AiderClear", function()
+    M.clear_context()
+end, {})
+
 -- Function to open aider in a terminal
 function M.open_aider()
     -- Get window dimensions

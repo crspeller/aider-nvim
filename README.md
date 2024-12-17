@@ -54,3 +54,4 @@ require('aider-nvim').setup({
 - `:AiderAddFileRO [files...]` - Adds files to aider as read-only (uses current buffer's file if no arguments provided)
 - `:AiderDropFile` - Removes the current buffer's file from aider
 - `:AiderDropAll` - Removes all files from aider
+- `:AiderClear` - Clears aider's conversation context
