@@ -31,7 +31,7 @@ You can configure the plugin by passing options to the setup function:
 require('aider-nvim').setup({
     terminal_height = 15, -- Height of the terminal split
     terminal_width = 80,  -- Width of the terminal split
-    command = "aider",    -- Command to run
+    command = "aider"     -- Command to run
 })
 ```
 
@@ -40,12 +40,8 @@ require('aider-nvim').setup({
 - Neovim >= 0.5.0
 - aider installed and available in your PATH
 
-## Optional Dependencies
-
-- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - For file picking functionality
-
 ## Commands
 
 - `:Aider` - Opens a terminal split and runs aider
-- `:AiderAddFile` - Opens telescope file picker to select files to add to aider
-- `:AiderRemoveFile` - Opens telescope picker showing currently tracked files to remove from aider
+- `:AiderAddFile` - Adds the current buffer's file to aider
+- `:AiderRemoveFile` - Removes the current buffer's file from aider

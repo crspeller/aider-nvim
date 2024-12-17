@@ -12,15 +12,12 @@ local default_config = {
     --- @type number Height of the terminal split in rows
     --- @type number Width of the terminal split in columns
     --- @type string Command to run for aider
-    --- @type boolean Enable telescope integration
     -- Default height of the terminal split (in rows)
     terminal_height = 15,
     -- Default width of the terminal split (in columns)
     terminal_width = 80,
     -- Command to run
     command = "aider",
-    -- Enable telescope integration
-    use_telescope = true,
 }
 
 M.config = default_config
@@ -127,10 +124,6 @@ function M.open_aider()
     end
 end
 
--- Initialize telescope if enabled
-if M.config.use_telescope then
-    M.setup_telescope()
-end
 
 -- Create user command
 vim.api.nvim_create_user_command("Aider", function()
