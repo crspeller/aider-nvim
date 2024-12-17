@@ -39,3 +39,13 @@ require('aider-nvim').setup({
 
 - Neovim >= 0.5.0
 - aider installed and available in your PATH
+
+## Optional Dependencies
+
+- [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) - For file picking functionality
+
+## Commands
+
+- `:Aider` - Opens a terminal split and runs aider
+- `:AiderAddFile` - Opens telescope file picker to select files to add to aider
+- `:AiderRemoveFile` - Opens telescope picker showing currently tracked files to remove from aider
