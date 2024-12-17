@@ -23,6 +23,13 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 The plugin provides a command `:Aider` that opens a terminal split and runs aider.
 
+### Keymapping Example
+
+```lua
+-- Map :Aider to <leader>a
+vim.keymap.set('n', '<leader>a', ':Aider<CR>', { noremap = true, silent = true })
+```
+
 ## Configuration
 
 You can configure the plugin by passing options to the setup function:
