@@ -1,6 +1,6 @@
 # aider.nvim
 
-A Neovim plugin for seamlessly integrating with aider (AI pair programming tool).
+A simple Neovim plugin for integrating with [aider](https://aider.chat/) - the terminal-based AI pair programming tool.
 
 ## Installation
 
