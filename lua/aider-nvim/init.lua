@@ -49,15 +49,26 @@ local function send_to_terminal(cmd)
     end
 end
 
--- Function to add current buffer to aider
-function M.add_current_file()
-    local current_file = vim.fn.expand('%:p')
-    if current_file ~= '' then
-        local cmd = "/add " .. current_file
-        send_to_terminal(cmd)
-        vim.notify("Added current file to aider: " .. current_file)
+-- Function to add files to aider
+function M.add_files(files)
+    if #files > 0 then
+        -- Add specified files
+        for _, file in ipairs(files) do
+            local full_path = vim.fn.fnamemodify(file, ':p')
+            local cmd = "/add " .. full_path
+            send_to_terminal(cmd)
+            vim.notify("Added file to aider: " .. full_path)
+        end
     else
-        vim.notify("No file in current buffer", vim.log.levels.WARN)
+        -- Add current buffer's file
+        local current_file = vim.fn.expand('%:p')
+        if current_file ~= '' then
+            local cmd = "/add " .. current_file
+            send_to_terminal(cmd)
+            vim.notify("Added current file to aider: " .. current_file)
+        else
+            vim.notify("No file in current buffer", vim.log.levels.WARN)
+        end
     end
 end
 
@@ -74,9 +85,12 @@ function M.remove_current_file()
 end
 
 -- Create commands for adding/removing current file
-vim.api.nvim_create_user_command("AiderAddFile", function()
-    M.add_current_file()
-end, {})
+vim.api.nvim_create_user_command("AiderAddFile", function(opts)
+    M.add_files(opts.fargs)
+end, {
+    nargs = '*',
+    complete = 'file'
+})
 
 vim.api.nvim_create_user_command("AiderDropFile", function()
     M.remove_current_file()
