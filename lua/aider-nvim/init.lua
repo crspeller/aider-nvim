@@ -42,12 +42,20 @@ function M.open_aider()
         or string.format("botright %dnew", M.config.terminal_height)
 
     if M.term_job and vim.fn.jobwait({M.term_job}, 0)[1] == -1 then
-        -- Aider is already running, just open the window
+        -- Aider is already running
         if M.term_buf and vim.api.nvim_buf_is_valid(M.term_buf) then
-            -- Create a new split and set the buffer
-            vim.cmd(split_cmd)
-            vim.api.nvim_win_set_buf(0, M.term_buf)
-            vim.cmd("startinsert")
+            -- Check if buffer is already visible in a window
+            local wins = vim.fn.win_findbuf(M.term_buf)
+            if #wins > 0 then
+                -- Jump to existing window
+                vim.api.nvim_set_current_win(wins[1])
+                vim.cmd("startinsert")
+            else
+                -- Create a new split and set the buffer
+                vim.cmd(split_cmd)
+                vim.api.nvim_win_set_buf(0, M.term_buf)
+                vim.cmd("startinsert")
+            end
         end
     else
         -- Start new aider instance
