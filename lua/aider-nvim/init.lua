@@ -38,7 +38,7 @@ function M.open_aider()
     local is_wide = width > height * 2  -- Use 2:1 ratio as threshold
 
     local split_cmd = is_wide
-        and string.format("botright vertical %dnew", M.config.terminal_width)
+        and string.format("vertical topleft %dnew", M.config.terminal_width)
         or string.format("botright %dnew", M.config.terminal_height)
 
     if M.term_job and vim.fn.jobwait({M.term_job}, 0)[1] == -1 then
