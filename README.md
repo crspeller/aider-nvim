@@ -8,7 +8,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-    'your-username/aider.nvim',
+    'crspeller/aider-nvim',
     config = function()
         require('aider-nvim').setup({
             -- Optional configuration
