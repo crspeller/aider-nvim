@@ -60,7 +60,7 @@ function M.add_files(files)
             send_to_terminal(cmd)
             table.insert(added_files, full_path)
         end
-        vim.notify("Added files to aider:\n" .. table.concat(added_files, "\n"))
+        vim.notify("Added files to aider: " .. table.concat(added_files, "  "))
     else
         -- Add current buffer's file
         local current_file = vim.fn.expand('%:p')
