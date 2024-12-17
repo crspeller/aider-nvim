@@ -53,19 +53,21 @@ end
 function M.add_files(files)
     if #files > 0 then
         -- Add specified files
+        local added_files = {}
         for _, file in ipairs(files) do
             local full_path = vim.fn.fnamemodify(file, ':p')
             local cmd = "/add " .. full_path
             send_to_terminal(cmd)
-            vim.notify("Added file to aider: " .. full_path)
+            table.insert(added_files, full_path)
         end
+        vim.notify("Added files to aider:\n" .. table.concat(added_files, "\n"))
     else
         -- Add current buffer's file
         local current_file = vim.fn.expand('%:p')
         if current_file ~= '' then
             local cmd = "/add " .. current_file
             send_to_terminal(cmd)
-            vim.notify("Added current file to aider: " .. current_file)
+            vim.notify("Added file to aider: " .. current_file)
         else
             vim.notify("No file in current buffer", vim.log.levels.WARN)
         end
