@@ -30,6 +30,7 @@ You can configure the plugin by passing options to the setup function:
 ```lua
 require('aider-nvim').setup({
     terminal_height = 15, -- Height of the terminal split
+    terminal_width = 80,  -- Width of the terminal split
     command = "aider",    -- Command to run
 })
 ```

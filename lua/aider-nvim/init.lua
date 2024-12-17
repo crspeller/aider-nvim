@@ -9,9 +9,12 @@ M.term_buf = nil
 -- Default configuration
 local default_config = {
     --- @type number Height of the terminal split in rows
+    --- @type number Width of the terminal split in columns
     --- @type string Command to run for aider
     -- Default height of the terminal split (in rows)
     terminal_height = 15,
+    -- Default width of the terminal split (in columns)
+    terminal_width = 80,
     -- Command to run
     command = "aider",
 }
@@ -29,17 +32,26 @@ end
 
 -- Function to open aider in a terminal
 function M.open_aider()
+    -- Get window dimensions
+    local width = vim.api.nvim_get_option("columns")
+    local height = vim.api.nvim_get_option("lines")
+    local is_wide = width > height * 2  -- Use 2:1 ratio as threshold
+
+    local split_cmd = is_wide
+        and string.format("botright vertical %dnew", M.config.terminal_width)
+        or string.format("botright %dnew", M.config.terminal_height)
+
     if M.term_job and vim.fn.jobwait({M.term_job}, 0)[1] == -1 then
         -- Aider is already running, just open the window
         if M.term_buf and vim.api.nvim_buf_is_valid(M.term_buf) then
             -- Create a new split and set the buffer
-            vim.cmd(string.format("botright %dnew", M.config.terminal_height))
+            vim.cmd(split_cmd)
             vim.api.nvim_win_set_buf(0, M.term_buf)
             vim.cmd("startinsert")
         end
     else
         -- Start new aider instance
-        vim.cmd(string.format("botright %dnew", M.config.terminal_height))
+        vim.cmd(split_cmd)
         
         -- Set buffer options for terminal
         vim.bo.buftype = "nofile"
