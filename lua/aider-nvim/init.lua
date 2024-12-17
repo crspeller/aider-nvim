@@ -33,7 +33,17 @@ end
 
 -- Function to send command to aider terminal
 local function send_to_terminal(cmd)
-    if M.term_buf and vim.api.nvim_buf_is_valid(M.term_buf) then
+    if not M.term_buf or not vim.api.nvim_buf_is_valid(M.term_buf) then
+        -- Start aider if it's not running
+        M.open_aider()
+        -- Wait a bit for aider to start up
+        vim.defer_fn(function()
+            if M.term_buf and vim.api.nvim_buf_is_valid(M.term_buf) then
+                local chan = vim.api.nvim_buf_get_var(M.term_buf, "terminal_job_id")
+                vim.api.nvim_chan_send(chan, cmd .. "\n")
+            end
+        end, 1000)  -- Wait 1 second for aider to initialize
+    else
         local chan = vim.api.nvim_buf_get_var(M.term_buf, "terminal_job_id")
         vim.api.nvim_chan_send(chan, cmd .. "\n")
     end
