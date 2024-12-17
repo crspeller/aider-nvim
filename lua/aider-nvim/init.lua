@@ -2,6 +2,10 @@
 --- @module aider-nvim
 local M = {}
 
+-- Store terminal job and buffer
+M.term_job = nil
+M.term_buf = nil
+
 -- Default configuration
 local default_config = {
     --- @type number Height of the terminal split in rows
@@ -25,23 +29,37 @@ end
 
 -- Function to open aider in a terminal
 function M.open_aider()
-    -- Create a new split at the bottom
-    vim.cmd(string.format("botright %dnew", M.config.terminal_height))
-    
-    -- Set buffer options for terminal
-    vim.bo.buftype = "nofile"
-    vim.bo.buflisted = false
-    
-    -- Open terminal with aider
-    vim.fn.termopen(M.config.command, {
-        on_exit = function()
-            -- Close the window when aider exits
-            vim.cmd("quit")
+    if M.term_job and vim.fn.jobwait({M.term_job}, 0)[1] == -1 then
+        -- Aider is already running, just open the window
+        if M.term_buf and vim.api.nvim_buf_is_valid(M.term_buf) then
+            -- Create a new split and set the buffer
+            vim.cmd(string.format("botright %dnew", M.config.terminal_height))
+            vim.api.nvim_win_set_buf(0, M.term_buf)
+            vim.cmd("startinsert")
         end
-    })
-    
-    -- Enter insert mode automatically
-    vim.cmd("startinsert")
+    else
+        -- Start new aider instance
+        vim.cmd(string.format("botright %dnew", M.config.terminal_height))
+        
+        -- Set buffer options for terminal
+        vim.bo.buftype = "nofile"
+        vim.bo.buflisted = false
+        
+        -- Open terminal with aider
+        local job_id = vim.fn.termopen(M.config.command, {
+            on_exit = function()
+                M.term_job = nil
+                M.term_buf = nil
+            end
+        })
+        
+        -- Store the job and buffer IDs
+        M.term_job = job_id
+        M.term_buf = vim.api.nvim_get_current_buf()
+        
+        -- Enter insert mode automatically
+        vim.cmd("startinsert")
+    end
 end
 
 -- Create user command
