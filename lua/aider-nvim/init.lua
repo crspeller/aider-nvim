@@ -94,8 +94,19 @@ end, {
     complete = 'file'
 })
 
+-- Function to drop all files from aider
+function M.drop_all_files()
+    local cmd = "/drop"
+    send_to_terminal(cmd)
+    vim.notify("Dropped all files from aider")
+end
+
 vim.api.nvim_create_user_command("AiderDropFile", function()
     M.remove_current_file()
+end, {})
+
+vim.api.nvim_create_user_command("AiderDropAll", function()
+    M.drop_all_files()
 end, {})
 
 -- Function to open aider in a terminal
