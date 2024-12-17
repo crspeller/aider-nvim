@@ -74,15 +74,28 @@ function M.add_files(files, read_only)
     end
 end
 
--- Function to remove current buffer from aider
-function M.remove_current_file()
-    local current_file = vim.fn.expand('%:p')
-    if current_file ~= '' then
-        local cmd = "/drop " .. current_file
-        send_to_terminal(cmd)
-        vim.notify("Removed current file from aider: " .. current_file)
+-- Function to remove files from aider
+function M.remove_files(files)
+    if #files > 0 then
+        -- Remove specified files
+        local removed_files = {}
+        for _, file in ipairs(files) do
+            local full_path = vim.fn.fnamemodify(file, ':p')
+            local cmd = "/drop " .. full_path
+            send_to_terminal(cmd)
+            table.insert(removed_files, full_path)
+        end
+        vim.notify("Removed files from aider: " .. table.concat(removed_files, "  "))
     else
-        vim.notify("No file in current buffer", vim.log.levels.WARN)
+        -- Remove current buffer's file
+        local current_file = vim.fn.expand('%:p')
+        if current_file ~= '' then
+            local cmd = "/drop " .. current_file
+            send_to_terminal(cmd)
+            vim.notify("Removed file from aider: " .. current_file)
+        else
+            vim.notify("No file in current buffer", vim.log.levels.WARN)
+        end
     end
 end
 
@@ -108,9 +121,12 @@ function M.drop_all_files()
     vim.notify("Dropped all files from aider")
 end
 
-vim.api.nvim_create_user_command("AiderDropFile", function()
-    M.remove_current_file()
-end, {})
+vim.api.nvim_create_user_command("AiderDropFile", function(opts)
+    M.remove_files(opts.fargs)
+end, {
+    nargs = '*',
+    complete = 'file'
+})
 
 vim.api.nvim_create_user_command("AiderDropAll", function()
     M.drop_all_files()
