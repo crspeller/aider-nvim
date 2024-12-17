@@ -60,7 +60,7 @@ end
 -- Function to remove files from aider
 function M.remove_files(files)
     if #files > 0 then
-        local cmd = "/remove " .. table.concat(files, " ")
+        local cmd = "/drop " .. table.concat(files, " ")
         send_to_terminal(cmd)
         -- Update watched files
         for _, file in ipairs(files) do
